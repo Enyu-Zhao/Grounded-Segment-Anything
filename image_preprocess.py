@@ -5,7 +5,6 @@ sys.path.append(os.path.join(os.getcwd(), "GroundingDINO"))
 import argparse
 import copy
 
-from IPython.display import display
 from PIL import Image, ImageDraw, ImageFont
 from torchvision.ops import box_convert
 
