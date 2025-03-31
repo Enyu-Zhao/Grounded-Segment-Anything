@@ -89,6 +89,8 @@ def annotate(image_source: np.ndarray, boxes: torch.Tensor, logits: torch.Tensor
     h, w, _ = image_source.shape
     boxes = boxes * torch.Tensor([w, h, w, h])
     xyxy = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy()
+
+    # print(f"print from function annotate:xyxy={xyxy}")
     detections = sv.Detections(xyxy=xyxy)
     labels = [
         f"{phrase} {logit:.2f}"
@@ -101,6 +103,11 @@ def annotate(image_source: np.ndarray, boxes: torch.Tensor, logits: torch.Tensor
     annotated_frame = box_annotator.annotate(scene=annotated_frame, detections=detections, labels=labels)
     return annotated_frame
 
+def convert_boxes_to_coords(image_source: np.ndarray, boxes: torch.Tensor):
+    h, w, _ = image_source.shape
+    boxes = boxes * torch.Tensor([w, h, w, h])
+    xyxy = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy()
+    return xyxy
 
 # ----------------------------------------------------------------------------------------------------------------------
 # NEW API
